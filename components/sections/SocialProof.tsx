@@ -72,12 +72,6 @@ export function SocialProof() {
           animate={isInView ? "visible" : "hidden"}
           className="text-center mb-14"
         >
-          <motion.p
-            variants={fadeUp}
-            className="text-pink-miami text-sm tracking-[0.3em] uppercase mb-4"
-          >
-            Reseñas
-          </motion.p>
           <motion.h2
             variants={fadeUp}
             className="font-display text-5xl md:text-7xl text-black-deep tracking-wide"

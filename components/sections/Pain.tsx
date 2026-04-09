@@ -5,9 +5,21 @@ import { motion, useInView } from "framer-motion";
 import { stagger, slideLeft, fadeUp } from "@/lib/animations";
 
 const painPoints = [
-  "¿Cansado de tatuajes que no significan nada?",
-  "¿De artistas que no entienden tus ideas o solo quieren tu dinero?",
-  "¿De sesiones apresuradas sin dedicación real?",
+  {
+    prefix: "¿Cansado de tatuajes que",
+    highlight: " no dicen nada",
+    suffix: "?",
+  },
+  {
+    prefix: "¿De tatuadores que no entienden tu idea o",
+    highlight: " solo quieren tu dinero",
+    suffix: " y te apuran la sesión?",
+  },
+  {
+    prefix: "¿De obras que merecen",
+    highlight: " tiempo y dedicación",
+    suffix: " pero nadie se la da?",
+  },
 ];
 
 export function Pain() {
@@ -36,20 +48,16 @@ export function Pain() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <motion.p
-              variants={slideLeft}
-              className="text-pink-miami text-sm tracking-[0.3em] uppercase mb-6"
-            >
-              La Realidad
-            </motion.p>
             <div className="flex flex-col gap-6">
-              {painPoints.map((point) => (
+              {painPoints.map((point, i) => (
                 <motion.p
-                  key={point}
+                  key={i}
                   variants={slideLeft}
                   className="font-display text-3xl md:text-4xl text-white leading-tight"
                 >
-                  {point}
+                  {point.prefix}
+                  <span className="text-gradient-pink">{point.highlight}</span>
+                  {point.suffix}
                 </motion.p>
               ))}
             </div>
@@ -62,12 +70,6 @@ export function Pain() {
             animate={isInView ? "visible" : "hidden"}
             className="border-l border-pink-miami/20 pl-10"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-white/50 text-sm tracking-widest uppercase mb-6"
-            >
-              Nuestra filosofía
-            </motion.p>
             <motion.p
               variants={fadeUp}
               className="text-white/80 text-lg md:text-xl leading-relaxed mb-6"

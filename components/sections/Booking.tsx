@@ -39,12 +39,6 @@ export function Booking() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <motion.p
-              variants={slideLeft}
-              className="text-pink-miami text-sm tracking-[0.3em] uppercase mb-6"
-            >
-              El Primer Paso
-            </motion.p>
             <motion.h2
               variants={slideLeft}
               className="font-display text-5xl md:text-7xl text-white tracking-wide leading-none mb-8"

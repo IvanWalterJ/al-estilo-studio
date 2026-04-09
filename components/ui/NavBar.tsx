@@ -44,14 +44,14 @@ export function NavBar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-white/70 hover:text-white text-sm tracking-widest uppercase transition-colors duration-200"
+                className="text-white/60 hover:text-white text-[13px] font-light tracking-[0.06em] transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
             <a
               href="#booking"
-              className="px-5 py-2 bg-pink-miami text-white text-sm font-semibold tracking-widest uppercase rounded-full hover:bg-pink-light transition-colors duration-200"
+              className="px-5 py-2 bg-pink-miami text-white text-[13px] font-semibold tracking-[0.12em] uppercase rounded-full hover:bg-pink-light transition-colors duration-200"
             >
               Reservar
             </a>
