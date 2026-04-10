@@ -2,18 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { AnimatedText } from "@/components/ui/AnimatedText";
-import { SprayPaint } from "@/components/ui/SprayPaint";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
-const LOGO_W = 500;
-const LOGO_H = 300;
+const VIDEO_START_TIME = 0.5;
 
 export function Hero() {
-  const [sprayDone, setSprayDone] = useState(false);
+  const [videoDone, setVideoDone] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { openModal } = useBookingModal();
 
   const { scrollYProgress } = useScroll({
@@ -30,11 +28,24 @@ export function Hero() {
   );
 
   useEffect(() => {
-    if (sprayDone) {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleCanPlay = () => {
+      video.currentTime = VIDEO_START_TIME;
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener("canplay", handleCanPlay, { once: true });
+    return () => video.removeEventListener("canplay", handleCanPlay);
+  }, []);
+
+  useEffect(() => {
+    if (videoDone) {
       const t = setTimeout(() => setShowTagline(true), 200);
       return () => clearTimeout(t);
     }
-  }, [sprayDone]);
+  }, [videoDone]);
 
   return (
     <section
@@ -61,31 +72,17 @@ export function Hero() {
         style={{ y: logoY, opacity: bgOpacity }}
         className="relative z-10 flex flex-col items-center gap-10"
       >
-        {/* Logo + spray canvas */}
-        <div
-          className="relative"
-          style={{ width: LOGO_W, height: LOGO_H, maxWidth: "90vw" }}
-        >
-          <Image
-            src="/images/logo/Ilustración_sin_título.png"
-            alt="Al Estilo Studio Logo"
-            width={LOGO_W}
-            height={LOGO_H}
-            priority
-            className="object-contain"
-            style={{
-              opacity: sprayDone ? 1 : 0,
-              transition: "opacity 0.8s ease-out",
-            }}
-          />
-          {!sprayDone && (
-            <SprayPaint
-              src="/images/logo/Ilustración_sin_título.png"
-              width={LOGO_W}
-              height={LOGO_H}
-              onComplete={() => setSprayDone(true)}
-            />
-          )}
+        {/* Logo video */}
+        <div className="relative" style={{ maxWidth: "90vw", width: 500 }}>
+          <video
+            ref={videoRef}
+            muted
+            playsInline
+            onEnded={() => setVideoDone(true)}
+            className="w-full h-auto"
+          >
+            <source src="/videos/hero-logo.mp4" type="video/mp4" />
+          </video>
         </div>
 
         {/* Tagline */}
