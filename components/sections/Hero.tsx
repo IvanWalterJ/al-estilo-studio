@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { AnimatedText } from "@/components/ui/AnimatedText";
 import { SprayPaint } from "@/components/ui/SprayPaint";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 const LOGO_W = 500;
 const LOGO_H = 300;
@@ -13,6 +14,7 @@ export function Hero() {
   const [sprayDone, setSprayDone] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { openModal } = useBookingModal();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -109,12 +111,12 @@ export function Hero() {
                 transition={{ delay: 1.6, duration: 0.6 }}
                 className="mt-8 flex flex-col sm:flex-row gap-4 justify-center"
               >
-                <a
-                  href="#booking"
+                <button
+                  onClick={openModal}
                   className="px-8 py-3 bg-pink-miami text-white font-semibold tracking-widest uppercase text-sm rounded-full hover:bg-pink-light transition-colors duration-200 glow-pink"
                 >
                   Reserva tu Consulta
-                </a>
+                </button>
                 <a
                   href="#portfolio"
                   className="px-8 py-3 border border-white/20 text-white text-sm tracking-widest uppercase rounded-full hover:border-pink-miami hover:text-pink-miami transition-colors duration-200"

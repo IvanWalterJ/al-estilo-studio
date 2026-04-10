@@ -3,10 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { stagger, fadeUp, slideLeft, slideRight } from "@/lib/animations";
-
-const CALENDLY_URL =
-  process.env.NEXT_PUBLIC_CALENDLY_URL ||
-  "https://calendly.com/alestiloestudio/consulta";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "50000000000";
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM || "https://instagram.com/alestiloestudio";
@@ -14,6 +11,7 @@ const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM || "https://instagram.co
 export function Booking() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { openModal } = useBookingModal();
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%2C%20quiero%20agendar%20mi%20consulta%20de%20dise%C3%B1o`;
 
@@ -118,14 +116,12 @@ export function Booking() {
                 Reserva directamente en nuestro calendario. Sesiones de consulta
                 de 30 minutos en el estudio.
               </p>
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openModal}
                 className="block w-full py-4 bg-pink-miami text-white text-center font-semibold tracking-widest uppercase text-sm rounded-2xl hover:bg-pink-light transition-colors duration-200 glow-pink"
               >
                 Reservar Consulta →
-              </a>
+              </button>
             </div>
 
             {/* WhatsApp option */}

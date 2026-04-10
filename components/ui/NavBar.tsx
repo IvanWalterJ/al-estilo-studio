@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 const navLinks = [
   { label: "Inicio", href: "#hero" },
@@ -13,6 +14,7 @@ const navLinks = [
 export function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openModal } = useBookingModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -49,12 +51,12 @@ export function NavBar() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="#booking"
+            <button
+              onClick={openModal}
               className="px-5 py-2 bg-pink-miami text-white text-[13px] font-semibold tracking-[0.12em] uppercase rounded-full hover:bg-pink-light transition-colors duration-200"
             >
               Reservar
-            </a>
+            </button>
           </div>
 
           {/* Mobile hamburger */}
@@ -103,17 +105,16 @@ export function NavBar() {
                 {link.label}
               </motion.a>
             ))}
-            <motion.a
-              href="#booking"
+            <motion.button
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 30 }}
               transition={{ delay: navLinks.length * 0.07 + 0.1, duration: 0.4 }}
               className="mt-4 px-8 py-3 bg-pink-miami text-white font-display text-2xl tracking-widest uppercase rounded-full"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => { setMenuOpen(false); openModal(); }}
             >
               Reservar
-            </motion.a>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

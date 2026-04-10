@@ -5,6 +5,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { stagger, fadeUp, slideLeft, slideRight } from "@/lib/animations";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 const steps = [
   {
@@ -28,6 +29,7 @@ export function Solution() {
   const ref = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { openModal } = useBookingModal();
 
   const { scrollYProgress } = useScroll({
     target: imgRef,
@@ -95,9 +97,9 @@ export function Solution() {
               </motion.div>
             ))}
 
-            <motion.a
+            <motion.button
               variants={fadeUp}
-              href="#booking"
+              onClick={openModal}
               className="mt-4 inline-flex items-center gap-3 px-8 py-3 bg-black-deep text-white text-sm font-semibold tracking-widest uppercase rounded-full hover:bg-pink-miami transition-colors duration-300 self-start"
             >
               Reservar Consulta
@@ -114,7 +116,7 @@ export function Solution() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           {/* Right: studio photo */}
