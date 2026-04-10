@@ -51,7 +51,7 @@ export function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black-deep"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Radial pink glow */}
       <motion.div
@@ -73,7 +73,7 @@ export function Hero() {
         className="relative z-10 flex flex-col items-center gap-10"
       >
         {/* Logo video */}
-        <div className="relative" style={{ maxWidth: "90vw", width: 500 }}>
+        <div className="relative" style={{ maxWidth: "90vw", width: 700 }}>
           <video
             ref={videoRef}
             muted
