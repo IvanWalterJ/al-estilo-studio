@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { GlassCard } from "@/components/ui/GlassCard";
 import { stagger, fadeUp, slideLeft, slideRight } from "@/lib/animations";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
@@ -146,28 +145,6 @@ export function Solution() {
           </motion.div>
         </div>
 
-        {/* Value props row */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-3 gap-6 p-8 rounded-3xl bg-black-deep"
-        >
-          {[
-            { label: "Piezas Únicas", value: "100%" },
-            { label: "Sin Diseños Genéricos", value: "0" },
-            { label: "Acompañamiento Completo", value: "✓" },
-          ].map((item) => (
-            <GlassCard key={item.label} variant="dark" className="text-center">
-              <p className="font-display text-5xl text-pink-miami mb-2">
-                {item.value}
-              </p>
-              <p className="text-white/60 text-sm tracking-widest uppercase">
-                {item.label}
-              </p>
-            </GlassCard>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

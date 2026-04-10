@@ -101,3 +101,21 @@ body {
 .animate-pulse-pink {
   animation: pulse-pink 3s ease-in-out infinite;
 }
+
+/* ── Scroll-reveal mask ──────────────────────────────────────────────────── */
+/* Sections start clipped at the bottom and fade in as they enter the viewport.
+   The clip-path creates a "curtain rising" effect; opacity adds a smooth fade.
+   SmoothScrollProvider toggles these classes via IntersectionObserver.        */
+
+.sr-hidden {
+  opacity: 0;
+  clip-path: inset(0 0 5% 0);
+}
+
+.sr-visible {
+  opacity: 1;
+  clip-path: inset(0 0 0% 0);
+  transition:
+    clip-path 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.75s ease;
+}
