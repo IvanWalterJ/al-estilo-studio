@@ -73,13 +73,19 @@ export function Promise() {
           animate={isInView ? "visible" : "hidden"}
           className="text-center mb-20"
         >
+          <motion.p
+            variants={fadeUp}
+            className="text-pink-miami text-xs tracking-[0.25em] uppercase font-medium mb-4"
+          >
+            Por qué elegirnos
+          </motion.p>
           <motion.h2
             variants={fadeUp}
             className="font-display text-5xl md:text-7xl lg:text-8xl text-black-deep tracking-wide leading-none"
           >
-            UNA OBRA DE ARTE
+            LO QUE NOS
             <br />
-            <span className="text-gradient-pink">EN TU PIEL</span>
+            <span className="text-gradient-pink">HACE ÚNICOS</span>
           </motion.h2>
           <motion.p
             variants={fadeUp}
