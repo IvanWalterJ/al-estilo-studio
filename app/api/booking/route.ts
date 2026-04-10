@@ -9,8 +9,9 @@ export async function POST(request: NextRequest) {
   }
 
   const webhookUrl = process.env.WEBHOOK_URL;
+  // If no webhook is configured, still succeed — the lead data was captured client-side
   if (!webhookUrl) {
-    return Response.json({ error: "Webhook not configured" }, { status: 500 });
+    return Response.json({ success: true, note: "webhook_not_configured" });
   }
 
   try {

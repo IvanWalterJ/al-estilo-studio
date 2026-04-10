@@ -15,7 +15,6 @@ export function SprayPaint({ src, width, height, onComplete }: SprayPaintProps) 
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    // Respect reduced motion preference
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDone(true);
       onComplete?.();
@@ -27,12 +26,19 @@ export function SprayPaint({ src, width, height, onComplete }: SprayPaintProps) 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    let rafId = 0;
+    let cancelled = false;
+
     const img = new window.Image();
-    img.crossOrigin = "anonymous";
+    // Same-origin asset — no crossOrigin attribute needed.
+    // Setting crossOrigin on a Next.js public-folder image taints the canvas
+    // because the dev server doesn't return Access-Control-Allow-Origin headers.
     img.src = src;
 
     img.onload = () => {
-      // Draw logo to offscreen canvas to extract alpha mask
+      if (cancelled) return;
+
+      // Extract pixel data from an offscreen canvas
       const offscreen = document.createElement("canvas");
       offscreen.width = width;
       offscreen.height = height;
@@ -40,55 +46,47 @@ export function SprayPaint({ src, width, height, onComplete }: SprayPaintProps) 
       offCtx.drawImage(img, 0, 0, width, height);
       const maskData = offCtx.getImageData(0, 0, width, height);
 
-      // Collect all valid pixels (where logo is opaque)
+      // Collect all opaque pixels
       const validPixels: [number, number][] = [];
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-          const idx = (y * width + x) * 4;
-          if (maskData.data[idx + 3] > 40) {
+          if (maskData.data[(y * width + x) * 4 + 3] > 40) {
             validPixels.push([x, y]);
           }
         }
       }
 
-      // Shuffle pixels for random spray effect
+      // Fisher-Yates shuffle for random spray order
       for (let i = validPixels.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [validPixels[i], validPixels[j]] = [validPixels[j], validPixels[i]];
       }
 
       const totalPixels = validPixels.length;
-      const duration = 2200; // ms
-      const fps = 60;
-      const totalFrames = Math.floor((duration / 1000) * fps);
+      const totalFrames = Math.floor((2200 / 1000) * 60); // 2.2s at 60fps
       const pixelsPerFrame = Math.ceil(totalPixels / totalFrames);
-
-      let frame = 0;
       let pixelIndex = 0;
-      let rafId: number;
 
-      // Fill canvas with dark background first
-      ctx.fillStyle = "#0A0A0A";
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
       function drawFrame() {
+        if (cancelled) return;
+
         const batch = Math.min(pixelsPerFrame * 3, totalPixels - pixelIndex);
 
         for (let i = 0; i < batch; i++) {
           const [px, py] = validPixels[pixelIndex + i];
-          const originalIdx = (py * width + px) * 4;
-          const r = maskData.data[originalIdx];
-          const g = maskData.data[originalIdx + 1];
-          const b = maskData.data[originalIdx + 2];
-          const a = maskData.data[originalIdx + 3] / 255;
+          const base = (py * width + px) * 4;
+          const r = maskData.data[base];
+          const g = maskData.data[base + 1];
+          const b = maskData.data[base + 2];
+          const a = maskData.data[base + 3] / 255;
 
-          // Mix original color with pink spray
           const pinkMix = Math.random() * 0.4;
           const fr = Math.round(r * (1 - pinkMix) + 247 * pinkMix);
           const fg = Math.round(g * (1 - pinkMix) + 37 * pinkMix);
           const fb = Math.round(b * (1 - pinkMix) + 133 * pinkMix);
 
-          // Add small random offset for spray scatter
           const ox = (Math.random() - 0.5) * 2;
           const oy = (Math.random() - 0.5) * 2;
 
@@ -100,22 +98,34 @@ export function SprayPaint({ src, width, height, onComplete }: SprayPaintProps) 
         }
 
         pixelIndex += batch;
-        frame++;
 
         if (pixelIndex < totalPixels) {
           rafId = requestAnimationFrame(drawFrame);
         } else {
           ctx!.globalAlpha = 1;
           setTimeout(() => {
-            setDone(true);
-            onComplete?.();
+            if (!cancelled) {
+              setDone(true);
+              onComplete?.();
+            }
           }, 300);
         }
       }
 
       rafId = requestAnimationFrame(drawFrame);
+    };
 
-      return () => cancelAnimationFrame(rafId);
+    img.onerror = () => {
+      // Fallback: skip animation if image fails to load
+      if (!cancelled) {
+        setDone(true);
+        onComplete?.();
+      }
+    };
+
+    return () => {
+      cancelled = true;
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [src, width, height, onComplete]);
 
