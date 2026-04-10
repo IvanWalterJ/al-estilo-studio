@@ -80,6 +80,7 @@ export function Hero() {
             playsInline
             onEnded={() => setVideoDone(true)}
             className="w-full h-auto"
+            style={{ mixBlendMode: "screen" }}
           >
             <source src="/videos/hero-logo.mp4" type="video/mp4" />
           </video>
