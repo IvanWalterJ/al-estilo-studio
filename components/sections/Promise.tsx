@@ -2,52 +2,22 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { stagger, fadeUp } from "@/lib/animations";
+import Image from "next/image";
+import { stagger, fadeUp, scaleIn } from "@/lib/animations";
 
 const features = [
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-pink-miami">
-        <path
-          d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    image: "/images/tattoos/9593EF33-4200-4882-937E-DA12CE217516_Original.JPG",
     title: "Realismo de Élite",
     desc: "Técnicas avanzadas de hiperrealismo que transforman tu piel en un lienzo de museo.",
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-pink-miami">
-        <path
-          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    image: "/images/tattoos/85844985-620A-4AD1-97AA-545A92C9E785.JPG",
     title: "Piezas Grandes",
     desc: "Especialistas en trabajos de gran formato que cuentan historias completas en tu cuerpo.",
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-pink-miami">
-        <polygon
-          points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    image: "/images/tattoos/1EF16A9F-1BFC-459E-A685-75F162521517.JPG",
     title: "Diseño Exclusivo",
     desc: "Cada pieza es única e irrepetible. No hacemos diseños genéricos ni copiamos referencias.",
   },
@@ -105,9 +75,27 @@ export function Promise() {
           className="grid md:grid-cols-3 gap-6"
         >
           {features.map((f) => (
-            <GlassCard key={f.title} variant="light" className="text-center">
-              <div className="flex flex-col items-center gap-4">
-                <div className="p-3 rounded-xl bg-pink-miami/10">{f.icon}</div>
+            <motion.div
+              key={f.title}
+              variants={scaleIn}
+              whileHover={{
+                scale: 1.02,
+                boxShadow:
+                  "0 20px 60px rgba(247, 37, 133, 0.2), 0 0 0 1px rgba(247, 37, 133, 0.15)",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="glass-light rounded-2xl overflow-hidden text-center group"
+            >
+              <div className="relative w-full aspect-[4/3] overflow-hidden">
+                <Image
+                  src={f.image}
+                  alt={f.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="flex flex-col items-center gap-4 p-8">
                 <h3 className="font-display text-2xl text-black-deep tracking-wide">
                   {f.title}
                 </h3>
@@ -115,7 +103,7 @@ export function Promise() {
                   {f.desc}
                 </p>
               </div>
-            </GlassCard>
+            </motion.div>
           ))}
         </motion.div>
       </div>

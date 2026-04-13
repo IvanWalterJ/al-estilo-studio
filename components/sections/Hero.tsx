@@ -10,9 +10,22 @@ const VIDEO_START_TIME = 0.5;
 export function Hero() {
   const [videoDone, setVideoDone] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
+  const [muted, setMuted] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { openModal } = useBookingModal();
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const next = !muted;
+    video.muted = next;
+    setMuted(next);
+    if (!next) {
+      video.currentTime = VIDEO_START_TIME;
+      video.play().catch(() => {});
+    }
+  };
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -76,7 +89,7 @@ export function Hero() {
         <div className="relative" style={{ maxWidth: "90vw", width: 700 }}>
           <video
             ref={videoRef}
-            muted
+            muted={muted}
             playsInline
             onEnded={() => setVideoDone(true)}
             className="w-full h-auto"
@@ -84,6 +97,26 @@ export function Hero() {
           >
             <source src="/videos/hero-logo.mp4" type="video/mp4" />
           </video>
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={muted ? "Activar sonido" : "Silenciar"}
+            className="absolute bottom-4 right-4 z-20 w-11 h-11 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm flex items-center justify-center text-white hover:border-pink-miami hover:text-pink-miami transition-colors"
+          >
+            {muted ? (
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                <line x1="23" y1="9" x2="17" y2="15" />
+                <line x1="17" y1="9" x2="23" y2="15" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                <path d="M15.54 8.46a5 5 0 010 7.07" />
+                <path d="M19.07 4.93a10 10 0 010 14.14" />
+              </svg>
+            )}
+          </button>
         </div>
 
         {/* Tagline */}

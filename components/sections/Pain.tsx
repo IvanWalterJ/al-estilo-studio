@@ -72,7 +72,7 @@ export function Pain() {
           >
             <motion.p
               variants={fadeUp}
-              className="text-white/80 text-lg md:text-xl leading-relaxed mb-6"
+              className="text-white/80 text-2xl md:text-3xl leading-snug mb-8"
             >
               Cada persona tiene una historia que expresar. El tatuaje correcto
               se{" "}
@@ -83,7 +83,7 @@ export function Pain() {
             </motion.p>
             <motion.p
               variants={fadeUp}
-              className="text-white/60 text-base leading-relaxed mb-6"
+              className="text-white/70 text-2xl md:text-3xl leading-snug mb-8"
             >
               Es como un mensaje oculto que descubrimos juntos en una sesión de
               diseño. Una marca para la eternidad que debe representar tu
@@ -91,7 +91,7 @@ export function Pain() {
             </motion.p>
             <motion.p
               variants={fadeUp}
-              className="text-white/60 text-base leading-relaxed"
+              className="text-white/70 text-2xl md:text-3xl leading-snug"
             >
               La piel es un lienzo que se trata con{" "}
               <span className="text-pink-light">respeto y dedicación</span>.

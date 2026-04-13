@@ -5,6 +5,7 @@ import { Pain } from "@/components/sections/Pain";
 import { Solution } from "@/components/sections/Solution";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { SocialProof } from "@/components/sections/SocialProof";
+import { Location } from "@/components/sections/Location";
 import { Booking } from "@/components/sections/Booking";
 import { Footer } from "@/components/sections/Footer";
 import { BookingModalProvider } from "@/components/providers/BookingModalProvider";
@@ -21,6 +22,7 @@ export default function Home() {
         <Solution />
         <Portfolio />
         <SocialProof />
+        <Location />
         <Booking />
       </main>
       <Footer />
