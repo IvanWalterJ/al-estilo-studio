@@ -8,7 +8,6 @@ import { useBookingModal } from "@/components/providers/BookingModalProvider";
 const VIDEO_START_TIME = 0.5;
 
 export function Hero() {
-  const [videoDone, setVideoDone] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
   const [muted, setMuted] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,11 +53,9 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (videoDone) {
-      const t = setTimeout(() => setShowTagline(true), 200);
-      return () => clearTimeout(t);
-    }
-  }, [videoDone]);
+    const t = setTimeout(() => setShowTagline(true), 2200);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <section
@@ -91,7 +88,6 @@ export function Hero() {
             ref={videoRef}
             muted={muted}
             playsInline
-            onEnded={() => setVideoDone(true)}
             className="w-full h-auto"
             style={{ mixBlendMode: "screen" }}
           >
