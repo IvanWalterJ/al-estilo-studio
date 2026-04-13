@@ -86,12 +86,12 @@ export function Promise() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="glass-light rounded-2xl overflow-hidden text-center group"
             >
-              <div className="relative w-full aspect-[4/3] overflow-hidden">
+              <div className="relative w-full aspect-[3/4] overflow-hidden">
                 <Image
                   src={f.image}
                   alt={f.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
