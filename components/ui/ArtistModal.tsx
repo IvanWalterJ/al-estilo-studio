@@ -144,7 +144,10 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                   <h2 className="mt-2 font-display text-4xl md:text-5xl text-white tracking-wider leading-none">
                     {artist.displayName}
                   </h2>
-                  <p className="mt-3 text-pink-light text-sm md:text-base tracking-widest uppercase">
+                  <p
+                    className="mt-3 font-graffiti text-2xl md:text-3xl text-pink-light text-shadow-pink leading-tight"
+                    style={{ transform: "rotate(-1.5deg)" }}
+                  >
                     {artist.specialty}
                   </p>
 

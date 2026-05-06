@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Bebas_Neue, Inter, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
@@ -12,6 +12,13 @@ const bebas = Bebas_Neue({
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const marker = Permanent_Marker({
+  weight: "400",
+  variable: "--font-marker",
   subsets: ["latin"],
   display: "swap",
 });
@@ -36,7 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${bebas.variable} ${inter.variable}`}
+      className={`${bebas.variable} ${inter.variable} ${marker.variable}`}
     >
       <body>
         <SmoothScrollProvider>{children}</SmoothScrollProvider>

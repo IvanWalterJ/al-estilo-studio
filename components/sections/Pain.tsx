@@ -51,7 +51,7 @@ export function Pain() {
         }}
       />
 
-      <div ref={ref} className="relative max-w-5xl mx-auto px-6">
+      <div ref={ref} className="relative px-6">
         {/* Centered text block */}
         <motion.div
           variants={stagger}
@@ -104,14 +104,14 @@ export function Pain() {
           </motion.div>
         </motion.div>
 
-        {/* Artists grid */}
+        {/* Artists grid — wider container to use horizontal space */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mt-24 md:mt-28"
+          className="mt-24 md:mt-28 max-w-[1400px] mx-auto"
         >
-          <div className="text-center mb-10 md:mb-14">
+          <div className="text-center mb-12 md:mb-16">
             <span className="text-pink-miami text-xs md:text-sm tracking-[0.4em] uppercase font-medium">
               · El Equipo ·
             </span>
@@ -128,7 +128,7 @@ export function Pain() {
             variants={staggerFast}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
           >
             {artists.map((artist) => (
               <ArtistCard
