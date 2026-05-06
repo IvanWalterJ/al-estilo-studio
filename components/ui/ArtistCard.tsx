@@ -12,7 +12,6 @@ interface ArtistCardProps {
 
 export function ArtistCard({ artist, onOpen }: ArtistCardProps) {
   const accent = `linear-gradient(${artist.accentDeg}deg, rgba(247,37,133,0.45) 0%, rgba(255,107,174,0.10) 50%, rgba(0,0,0,0) 100%)`;
-  const watermark = artist.shortTags[0] ?? artist.specialty;
 
   return (
     <motion.button
@@ -38,6 +37,7 @@ export function ArtistCard({ artist, onOpen }: ArtistCardProps) {
       {/* Card frame */}
       <div
         className="relative aspect-[2/3] rounded-3xl border border-pink-miami/30 overflow-hidden bg-black-deep transition-colors duration-300 group-hover:border-pink-miami/80"
+        style={{ containerType: "inline-size" }}
       >
         {/* Black & white photo (default) */}
         <Image
@@ -76,18 +76,18 @@ export function ArtistCard({ artist, onOpen }: ArtistCardProps) {
           }}
         />
 
-        {/* Giant graffiti watermark — sprays over the photo on hover */}
+        {/* Graffiti watermark — sprays over the photo on hover */}
         <span
-          className="font-graffiti pointer-events-none absolute -left-2 top-[38%] text-[110px] sm:text-[130px] lg:text-[140px] leading-none whitespace-nowrap select-none transition-all duration-500 opacity-0 group-hover:opacity-90"
+          className="font-graffiti pointer-events-none absolute left-1/2 top-[40%] text-[clamp(2.25rem,14cqw,4.25rem)] leading-none whitespace-nowrap select-none transition-all duration-500 opacity-0 group-hover:opacity-95"
           style={{
-            transform: "rotate(-8deg)",
-            color: "rgba(255,107,174,0.85)",
+            transform: "translate(-50%, -50%) rotate(-6deg)",
+            color: "rgba(255,107,174,0.95)",
             mixBlendMode: "screen",
             textShadow:
               "0 0 14px rgba(247,37,133,0.9), 0 0 30px rgba(247,37,133,0.6)",
           }}
         >
-          {watermark}
+          {artist.watermark}
         </span>
 
         {/* Shine sweep on hover */}
