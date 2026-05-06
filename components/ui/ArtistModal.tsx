@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Artist } from "@/lib/artists";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
+import { ArtistGalleryModal } from "@/components/ui/ArtistGalleryModal";
 
 interface ArtistModalProps {
   artist: Artist | null;
@@ -14,8 +15,14 @@ interface ArtistModalProps {
 
 export function ArtistModal({ artist, onClose }: ArtistModalProps) {
   const [mounted, setMounted] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
   const { openModal: openBookingModal } = useBookingModal();
   const isOpen = artist !== null;
+
+  // Reset nested gallery state whenever the bio modal closes
+  useEffect(() => {
+    if (!isOpen) setGalleryOpen(false);
+  }, [isOpen]);
 
   useEffect(() => {
     setMounted(true);
@@ -147,7 +154,18 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                     {artist.bio}
                   </p>
 
-                  <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                  <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+                    <button
+                      onClick={() => setGalleryOpen(true)}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-pink-miami/60 text-pink-miami text-sm tracking-widest uppercase font-semibold hover:bg-pink-miami hover:text-white transition-colors duration-200"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" />
+                      </svg>
+                      Ver tatuajes del artista
+                    </button>
                     <button
                       onClick={() => {
                         onClose();
@@ -160,17 +178,16 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
                     </button>
-                    <button
-                      onClick={onClose}
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/15 text-white/70 text-sm tracking-widest uppercase hover:border-pink-miami/60 hover:text-white transition-colors duration-200"
-                    >
-                      Cerrar
-                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
+
+          <ArtistGalleryModal
+            artist={galleryOpen ? artist : null}
+            onClose={() => setGalleryOpen(false)}
+          />
         </>
       )}
     </AnimatePresence>,

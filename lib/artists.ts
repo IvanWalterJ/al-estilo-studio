@@ -1,3 +1,10 @@
+export interface ArtistGalleryItem {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
 export interface Artist {
   id: string;
   handle: string;
@@ -10,6 +17,7 @@ export interface Artist {
   photoBw: string;
   photoColor: string;
   accentDeg: number;
+  gallery: ArtistGalleryItem[];
 }
 
 export const artists: Artist[] = [
@@ -25,6 +33,7 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/gringo-bw.jpg",
     photoColor: "/images/artists/gringo-color.jpg",
     accentDeg: 135,
+    gallery: [],
   },
   {
     id: "doblemme",
@@ -38,6 +47,7 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/doblemme-bw.jpg",
     photoColor: "/images/artists/doblemme-color.jpg",
     accentDeg: 200,
+    gallery: [],
   },
   {
     id: "manen-tatts",
@@ -51,6 +61,7 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/manen-bw.jpg",
     photoColor: "/images/artists/manen-color.jpg",
     accentDeg: 65,
+    gallery: [],
   },
   {
     id: "nxn-tatuero",
@@ -64,5 +75,6 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/nxn-bw.jpg",
     photoColor: "/images/artists/nxn-color.jpg",
     accentDeg: 300,
+    gallery: [],
   },
 ];
