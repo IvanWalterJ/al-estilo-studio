@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Artist } from "@/lib/artists";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
@@ -92,48 +93,26 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                 </svg>
               </button>
 
-              <div className="grid md:grid-cols-[260px_1fr] gap-0">
-                {/* Left: photo placeholder */}
-                <div
-                  className="relative aspect-[3/4] md:aspect-auto md:min-h-full overflow-hidden md:rounded-l-3xl rounded-t-3xl md:rounded-tr-none border-b md:border-b-0 md:border-r border-pink-miami/20"
-                  style={{
-                    background: `linear-gradient(${artist.accentDeg}deg, rgba(247,37,133,0.45) 0%, rgba(255,107,174,0.18) 50%, rgba(0,0,0,0.6) 100%)`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 opacity-15"
-                    style={{
-                      backgroundImage:
-                        "repeating-linear-gradient(45deg, rgba(247,37,133,0.6) 0px, rgba(247,37,133,0.6) 1px, transparent 1px, transparent 14px)",
-                    }}
+              <div className="grid md:grid-cols-[300px_1fr] gap-0">
+                {/* Left: artist photo (color) */}
+                <div className="relative aspect-[2/3] md:aspect-auto md:min-h-full overflow-hidden md:rounded-l-3xl rounded-t-3xl md:rounded-tr-none border-b md:border-b-0 md:border-r border-pink-miami/20">
+                  <Image
+                    src={artist.photoColor}
+                    alt={`${artist.displayName} — retrato`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 300px"
+                    className="object-cover"
                   />
                   <div
-                    className="absolute inset-0"
+                    className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-40"
                     style={{
-                      background:
-                        "radial-gradient(circle at 50% 35%, rgba(247,37,133,0.25) 0%, transparent 65%)",
+                      background: `linear-gradient(${artist.accentDeg}deg, rgba(247,37,133,0.5) 0%, rgba(0,0,0,0) 60%)`,
                     }}
                   />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-                    <div className="w-16 h-16 rounded-full border border-pink-miami/60 flex items-center justify-center mb-3">
-                      <svg
-                        className="w-7 h-7 text-pink-miami"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      >
-                        <circle cx="12" cy="8" r="4" />
-                        <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-                      </svg>
-                    </div>
-                    <span className="text-pink-miami text-[10px] tracking-[0.3em] uppercase font-medium">
-                      El Artista
-                    </span>
-                    <span className="mt-3 text-white/40 text-[10px] tracking-widest uppercase">
-                      Foto próximamente
-                    </span>
-                  </div>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+                  <span className="absolute top-4 left-4 text-pink-miami text-[10px] tracking-[0.3em] uppercase font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                    El Artista
+                  </span>
                 </div>
 
                 {/* Right: info */}
