@@ -20,6 +20,56 @@ export interface Artist {
   gallery: ArtistGalleryItem[];
 }
 
+const elGringoGallery: ArtistGalleryItem[] = [
+  { src: "/images/artists-gallery/el-gringo/el-gringo-01.jpg", alt: "Tatuaje por El Gringo", width: 1206, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-02.jpg", alt: "Tatuaje por El Gringo", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-03.jpg", alt: "Tatuaje por El Gringo", width: 1429, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-04.jpg", alt: "Tatuaje por El Gringo", width: 1440, height: 1591 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-05.jpg", alt: "Tatuaje por El Gringo", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-06.jpg", alt: "Tatuaje por El Gringo", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-07.jpg", alt: "Tatuaje por El Gringo", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-08.jpg", alt: "Tatuaje por El Gringo", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-09.jpg", alt: "Diseño por El Gringo", width: 1080, height: 1350 },
+  { src: "/images/artists-gallery/el-gringo/el-gringo-10.jpg", alt: "Diseño por El Gringo", width: 1080, height: 1350 },
+];
+
+const doblemmeGallery: ArtistGalleryItem[] = [
+  { src: "/images/artists-gallery/doblemme/doblemme-01.jpg", alt: "Tatuaje por Doblemme", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-02.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-03.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-04.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-05.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-06.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-07.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-08.jpg", alt: "Tatuaje por Doblemme", width: 926, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-09.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/doblemme/doblemme-10.jpg", alt: "Tatuaje por Doblemme", width: 900, height: 1600 },
+];
+
+const manenGallery: ArtistGalleryItem[] = [
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-01.jpg", alt: "Tatuaje por Manen", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-02.jpg", alt: "Tatuaje por Manen", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-03.jpg", alt: "Tatuaje por Manen", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-04.jpg", alt: "Tatuaje por Manen", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-05.jpg", alt: "Tatuaje por Manen", width: 1018, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-06.jpg", alt: "Tatuaje por Manen", width: 1180, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-07.jpg", alt: "Tatuaje por Manen", width: 970, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-08.jpg", alt: "Tatuaje por Manen", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/manen-tatts/manen-tatts-09.jpg", alt: "Tatuaje por Manen", width: 1200, height: 1600 },
+];
+
+const nxnGallery: ArtistGalleryItem[] = [
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-01.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-02.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-03.jpg", alt: "Tatuaje por Nxn", width: 1200, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-04.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-05.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-06.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-07.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-08.jpg", alt: "Tatuaje por Nxn", width: 1154, height: 1600 },
+  { src: "/images/artists-gallery/nxn-tatuero/nxn-tatuero-09.jpg", alt: "Tatuaje por Nxn", width: 900, height: 1600 },
+];
+
 export const artists: Artist[] = [
   {
     id: "el-gringo",
@@ -33,7 +83,7 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/gringo-bw.jpg",
     photoColor: "/images/artists/gringo-color.jpg",
     accentDeg: 135,
-    gallery: [],
+    gallery: elGringoGallery,
   },
   {
     id: "doblemme",
@@ -47,7 +97,7 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/doblemme-bw.jpg",
     photoColor: "/images/artists/doblemme-color.jpg",
     accentDeg: 200,
-    gallery: [],
+    gallery: doblemmeGallery,
   },
   {
     id: "manen-tatts",
@@ -61,7 +111,7 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/manen-bw.jpg",
     photoColor: "/images/artists/manen-color.jpg",
     accentDeg: 65,
-    gallery: [],
+    gallery: manenGallery,
   },
   {
     id: "nxn-tatuero",
@@ -75,6 +125,6 @@ export const artists: Artist[] = [
     photoBw: "/images/artists/nxn-bw.jpg",
     photoColor: "/images/artists/nxn-color.jpg",
     accentDeg: 300,
-    gallery: [],
+    gallery: nxnGallery,
   },
 ];
