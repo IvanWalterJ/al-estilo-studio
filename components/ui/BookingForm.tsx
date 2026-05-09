@@ -13,9 +13,33 @@ const CALENDLY_URL =
   process.env.NEXT_PUBLIC_CALENDLY_URL ||
   "https://calendly.com/alestiloestudio/consulta";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "50000000000";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "5492944818271";
 
 const TOTAL_STEPS = 5;
+
+// ─── WhatsApp helpers ────────────────────────────────────────────────────────
+
+function buildWhatsAppMessage(answers: BookingAnswers): string {
+  const lines = [
+    "Hola! Quiero agendar una consulta en Al Estilo Studio.",
+    "",
+    `*Nombre:* ${answers.nombre}`,
+    `*Email:* ${answers.email}`,
+    answers.telefono ? `*Teléfono:* ${answers.telefono}` : null,
+    "",
+    `*Estilo:* ${answers.style}`,
+    `*Tamaño:* ${answers.size}`,
+    `*Primer tatuaje:* ${answers.firstTattoo}`,
+    `*Cuándo:* ${answers.timeline}`,
+  ].filter((line): line is string => line !== null);
+
+  return lines.join("\n");
+}
+
+function buildWhatsAppUrl(answers: BookingAnswers): string {
+  const text = encodeURIComponent(buildWhatsAppMessage(answers));
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+}
 
 // ─── SVG Icons ───────────────────────────────────────────────────────────────
 
@@ -393,9 +417,7 @@ function ContactStep({ answers, status, onSubmit, onChange }: ContactStepProps) 
 
 // ─── SuccessScreen ────────────────────────────────────────────────────────────
 
-function SuccessScreen() {
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%2C%20quiero%20agendar%20mi%20consulta%20de%20dise%C3%B1o`;
-
+function SuccessScreen({ whatsappUrl }: { whatsappUrl: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -431,7 +453,8 @@ function SuccessScreen() {
       >
         <h3 className="font-display text-3xl text-white tracking-wide mb-3">¡LISTO!</h3>
         <p className="text-white/55 text-sm leading-relaxed max-w-xs">
-          Recibimos tus datos. Ahora elegí tu horario o escribinos directo por WhatsApp.
+          Te llevamos a WhatsApp con toda tu info ya cargada. Solo tenés que
+          tocar enviar.
         </p>
       </motion.div>
 
@@ -442,11 +465,22 @@ function SuccessScreen() {
         className="flex flex-col gap-3 w-full"
       >
         <a
-          href={CALENDLY_URL}
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-3 w-full py-4 bg-pink-miami text-white text-center font-semibold tracking-widest uppercase text-sm rounded-2xl hover:bg-pink-light transition-colors duration-200"
           style={{ boxShadow: "0 0 28px rgba(247,37,133,0.25)" }}
+        >
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Abrir WhatsApp
+        </a>
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 w-full py-4 border border-white/10 text-white text-center font-semibold tracking-widest uppercase text-sm rounded-2xl hover:border-pink-miami hover:text-pink-miami transition-colors duration-200"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="1.5" />
@@ -454,18 +488,7 @@ function SuccessScreen() {
             <line x1="8" y1="2" x2="8" y2="6" strokeWidth="1.5" strokeLinecap="round" />
             <line x1="16" y1="2" x2="16" y2="6" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
-          Elegir horario en Calendly
-        </a>
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 w-full py-4 border border-white/10 text-white text-center font-semibold tracking-widest uppercase text-sm rounded-2xl hover:border-green-400 hover:text-green-400 transition-colors duration-200"
-        >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-          Escribir por WhatsApp
+          O elegir horario en Calendly
         </a>
       </motion.div>
     </motion.div>
@@ -513,22 +536,34 @@ export function BookingForm() {
       telefono: localAnswers.telefono,
     };
 
-    try {
-      const res = await fetch("/api/booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+    // Fire-and-forget: el webhook (n8n/Make/CRM) recibe la data en paralelo.
+    // No bloqueamos la UX porque el flujo principal es el redirect a WhatsApp.
+    fetch("/api/booking", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => {
+      // Silenciado: la conversación principal viaja por WhatsApp.
+    });
 
-      if (!res.ok) throw new Error("Request failed");
-      setStatus("success");
-    } catch {
-      setStatus("error");
-    }
+    const whatsappUrl = buildWhatsAppUrl(payload);
+    setStatus("success");
+
+    // Pequeño delay para que el usuario vea el "¡LISTO!" un instante,
+    // y para que la SuccessScreen quede como fallback si el redirect lo bloquea el browser.
+    setTimeout(() => {
+      window.location.href = whatsappUrl;
+    }, 600);
   };
 
   const isOptionStep = currentStep < 4;
   const stepMeta = isOptionStep ? STEP_META[currentStep] : null;
+  const whatsappUrl = buildWhatsAppUrl({
+    ...answers,
+    nombre: localAnswers.nombre,
+    email: localAnswers.email,
+    telefono: localAnswers.telefono,
+  });
 
   return (
     <div className="p-6 sm:p-8">
@@ -588,7 +623,7 @@ export function BookingForm() {
       <AnimatePresence mode="wait" custom={direction}>
         {status === "success" ? (
           <motion.div key="success">
-            <SuccessScreen />
+            <SuccessScreen whatsappUrl={whatsappUrl} />
           </motion.div>
         ) : (
           <motion.div

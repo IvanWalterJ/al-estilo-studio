@@ -5,8 +5,9 @@ import { motion, useInView } from "framer-motion";
 import { stagger, fadeUp, slideLeft, slideRight } from "@/lib/animations";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "50000000000";
-const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM || "https://instagram.com/alestiloestudio";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "5492944818271";
+const INSTAGRAM_URL =
+  process.env.NEXT_PUBLIC_INSTAGRAM || "https://www.instagram.com/alestilostudio_/";
 
 export function Booking() {
   const ref = useRef<HTMLDivElement>(null);
