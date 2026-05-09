@@ -8,10 +8,9 @@ const ROOT = path.resolve(__dirname, "../..");
 const ARTISTS_DIR = path.resolve(__dirname, "../public/images/artists-gallery");
 
 const SOURCES = [
-  { slug: "el-gringo", folder: "Gringo", name: "El Gringo" },
-  { slug: "doblemme", folder: "Doblemme", name: "Doblemme" },
-  { slug: "manen-tatts", folder: "Manen", name: "Manen Tatts" },
-  { slug: "nxn-tatuero", folder: "Nxn tatuero", name: "Nxn Tatuero" },
+  { slug: "doblemme", folder: "1-doblemme", name: "Doblemme" },
+  { slug: "manen-tatts", folder: "2-manen", name: "Manen Tatts" },
+  { slug: "nxn-tatuero", folder: "3-Nxn", name: "Nxn Tatuero" },
 ];
 
 const MAX_DIM = 1600;
