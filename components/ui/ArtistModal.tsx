@@ -102,14 +102,14 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                 </svg>
               </button>
 
-              <div className="grid md:grid-cols-[300px_1fr] gap-0">
+              <div className="grid md:grid-cols-[340px_1fr] gap-0 md:min-h-[72vh]">
                 {/* Left: artist photo (color) */}
                 <div className="relative aspect-[4/3] sm:aspect-[3/2] md:aspect-auto md:min-h-full overflow-hidden md:rounded-l-3xl rounded-t-3xl md:rounded-tr-none border-b md:border-b-0 md:border-r border-pink-miami/20">
                   <Image
                     src={artist.photoColor}
                     alt={`${artist.displayName} — retrato`}
                     fill
-                    sizes="(max-width: 768px) 100vw, 300px"
+                    sizes="(max-width: 768px) 100vw, 340px"
                     className="object-cover object-top md:object-center"
                   />
                   <div
