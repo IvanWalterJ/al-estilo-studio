@@ -92,12 +92,14 @@ export function ArtistGalleryModal({ artist, onClose }: ArtistGalleryModalProps)
             className="fixed inset-0 z-[301] flex items-stretch justify-center pointer-events-none p-3 md:p-6"
           >
             <div
-              className="relative w-full max-w-6xl max-h-[94vh] overflow-y-auto pointer-events-auto rounded-3xl border border-pink-miami/20"
+              data-lenis-prevent
+              className="relative w-full max-w-6xl max-h-[94vh] overflow-y-auto overscroll-contain pointer-events-auto rounded-3xl border border-pink-miami/20"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(17,17,17,0.98) 0%, rgba(8,8,8,0.98) 100%)",
                 boxShadow:
                   "0 25px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(247,37,133,0.12)",
+                WebkitOverflowScrolling: "touch",
               }}
               onClick={(e) => e.stopPropagation()}
             >
