@@ -80,19 +80,20 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
             className="fixed inset-0 z-[201] flex items-center justify-center pointer-events-none px-4"
           >
             <div
-              className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto pointer-events-auto rounded-3xl border border-pink-miami/20"
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto overscroll-contain pointer-events-auto rounded-3xl border border-pink-miami/20"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(17,17,17,0.98) 0%, rgba(8,8,8,0.98) 100%)",
                 boxShadow:
                   "0 25px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(247,37,133,0.12), 0 0 80px rgba(247,37,133,0.18)",
+                WebkitOverflowScrolling: "touch",
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close */}
               <button
                 onClick={onClose}
-                className="absolute top-5 right-5 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-pink-miami/30 transition-colors duration-200 text-white/60 hover:text-white"
+                className="absolute top-4 right-4 z-30 w-9 h-9 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/10 hover:bg-pink-miami/40 hover:border-pink-miami/60 transition-colors duration-200 text-white/70 hover:text-white"
                 aria-label="Cerrar"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,14 +101,14 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                 </svg>
               </button>
 
-              <div className="grid md:grid-cols-[300px_1fr] gap-0">
+              <div className="grid md:grid-cols-[260px_1fr] gap-0">
                 {/* Left: artist photo (color) */}
-                <div className="relative aspect-[2/3] md:aspect-auto md:min-h-full overflow-hidden md:rounded-l-3xl rounded-t-3xl md:rounded-tr-none border-b md:border-b-0 md:border-r border-pink-miami/20">
+                <div className="relative aspect-[4/5] md:aspect-auto md:min-h-full overflow-hidden md:rounded-l-3xl rounded-t-3xl md:rounded-tr-none border-b md:border-b-0 md:border-r border-pink-miami/20">
                   <Image
                     src={artist.photoColor}
                     alt={`${artist.displayName} — retrato`}
                     fill
-                    sizes="(max-width: 768px) 100vw, 300px"
+                    sizes="(max-width: 768px) 100vw, 260px"
                     className="object-cover"
                   />
                   <div
@@ -123,63 +124,70 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
                 </div>
 
                 {/* Right: info */}
-                <div className="p-7 md:p-9">
+                <div className="p-5 md:p-7 pb-4 md:pb-6">
                   <span className="inline-block text-pink-miami text-[10px] tracking-[0.3em] uppercase font-medium">
                     @{artist.handle}
                   </span>
-                  <h2 className="mt-2 font-display text-4xl md:text-5xl text-white tracking-wider leading-none">
+                  <h2 className="mt-1.5 font-display text-3xl md:text-[2.5rem] text-white tracking-wider leading-none">
                     {artist.displayName}
                   </h2>
                   <p
-                    className="mt-3 font-graffiti text-2xl md:text-3xl text-pink-light text-shadow-pink leading-tight"
+                    className="mt-2 font-graffiti text-xl md:text-2xl text-pink-light text-shadow-pink leading-tight"
                     style={{ transform: "rotate(-1.5deg)" }}
                   >
                     {artist.specialty}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-3.5 flex flex-wrap gap-1.5">
                     {artist.shortTags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[11px] tracking-widest uppercase px-3 py-1 rounded-full border border-pink-miami/30 bg-pink-miami/5 text-white/80"
+                        className="text-[10px] tracking-widest uppercase px-2.5 py-0.5 rounded-full border border-pink-miami/30 bg-pink-miami/5 text-white/80"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-6 h-px bg-gradient-to-r from-pink-miami/40 via-pink-miami/10 to-transparent" />
+                  <div className="mt-4 h-px bg-gradient-to-r from-pink-miami/40 via-pink-miami/10 to-transparent" />
 
-                  <p className="mt-6 text-white/75 text-base md:text-lg leading-relaxed">
+                  <p className="mt-4 text-white/75 text-[14px] md:text-[15px] leading-relaxed">
                     {artist.bio}
                   </p>
-
-                  <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
-                    <button
-                      onClick={() => setGalleryOpen(true)}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-pink-miami/60 text-pink-miami text-sm tracking-widest uppercase font-semibold hover:bg-pink-miami hover:text-white transition-colors duration-200"
-                    >
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" />
-                      </svg>
-                      Ver tatuajes del artista
-                    </button>
-                    <button
-                      onClick={() => {
-                        onClose();
-                        openBookingModal();
-                      }}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-pink-miami text-white text-sm tracking-widest uppercase font-semibold hover:bg-pink-light transition-colors duration-200"
-                    >
-                      Reservar consulta
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
                 </div>
+              </div>
+
+              {/* Sticky CTA footer — siempre visible */}
+              <div
+                className="sticky bottom-0 left-0 right-0 z-20 px-5 md:px-7 py-3.5 md:py-4 border-t border-pink-miami/15 backdrop-blur-md flex flex-col sm:flex-row gap-2.5 rounded-b-3xl"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.96) 60%, rgba(8,8,8,0.98) 100%)",
+                }}
+              >
+                <button
+                  onClick={() => setGalleryOpen(true)}
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-pink-miami/60 text-pink-miami text-[12px] md:text-sm tracking-widest uppercase font-semibold hover:bg-pink-miami hover:text-white transition-colors duration-200"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" />
+                  </svg>
+                  Ver galería
+                </button>
+                <button
+                  onClick={() => {
+                    onClose();
+                    openBookingModal();
+                  }}
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-pink-miami text-white text-[12px] md:text-sm tracking-widest uppercase font-semibold hover:bg-pink-light transition-colors duration-200 glow-pink"
+                >
+                  Reservar consulta
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </motion.div>
