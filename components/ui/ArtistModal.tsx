@@ -126,9 +126,29 @@ export function ArtistModal({ artist, onClose }: ArtistModalProps) {
 
                 {/* Right: info */}
                 <div className="p-6 md:p-8 pb-4 md:pb-6">
-                  <span className="inline-block text-pink-miami text-[10px] tracking-[0.3em] uppercase font-medium">
-                    @{artist.handle}
-                  </span>
+                  <a
+                    href={artist.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-pink-miami text-[10px] tracking-[0.3em] uppercase font-medium hover:text-pink-light transition-colors duration-200 group/ig"
+                    aria-label={`Ver perfil de Instagram de ${artist.displayName}`}
+                  >
+                    <svg
+                      className="w-3.5 h-3.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                    <span className="group-hover/ig:underline underline-offset-2">
+                      @{artist.handle}
+                    </span>
+                  </a>
                   <h2 className="mt-2 font-display text-3xl md:text-[2.75rem] text-white tracking-wider leading-none">
                     {artist.displayName}
                   </h2>

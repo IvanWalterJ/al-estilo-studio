@@ -8,6 +8,7 @@ export interface ArtistGalleryItem {
 export interface Artist {
   id: string;
   handle: string;
+  instagramUrl: string;
   displayName: string;
   role: string;
   specialty: string;
@@ -66,6 +67,7 @@ export const artists: Artist[] = [
   {
     id: "el-gringo",
     handle: "ALESTILOGRINGO",
+    instagramUrl: "https://www.instagram.com/alestilogringo/",
     displayName: "EL GRINGO",
     role: "Fundador · Tatuador Principal",
     specialty: "Realismo y Diseño de Autor",
@@ -79,7 +81,8 @@ export const artists: Artist[] = [
   },
   {
     id: "doblemme",
-    handle: "DOBLEMME",
+    handle: "DOBLEMMETATTOO",
+    instagramUrl: "https://www.instagram.com/doblemmetattoo/",
     displayName: "DOBLEMME",
     role: "Ilustración de Autor",
     specialty: "Estilo de Autor · Ilustración",
@@ -94,6 +97,7 @@ export const artists: Artist[] = [
   {
     id: "manen-tatts",
     handle: "MANEN.TATTS",
+    instagramUrl: "https://www.instagram.com/manen.tatts/",
     displayName: "MANEN TATTS",
     role: "Botánica · Color · Fine Line",
     specialty: "Botánica, Color y Fine Line",
@@ -108,6 +112,7 @@ export const artists: Artist[] = [
   {
     id: "nxn-tatuero",
     handle: "NXN.TATUERO",
+    instagramUrl: "https://www.instagram.com/nxn.tatuero/",
     displayName: "NXN TATUERO",
     role: "Blackwork · Whipshading",
     specialty: "Blackwork y Whipshading",
