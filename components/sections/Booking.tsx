@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { stagger, fadeUp, slideLeft, slideRight } from "@/lib/animations";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "5492944818271";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "542944380386";
 const INSTAGRAM_URL =
   process.env.NEXT_PUBLIC_INSTAGRAM || "https://www.instagram.com/alestilostudio_/";
 

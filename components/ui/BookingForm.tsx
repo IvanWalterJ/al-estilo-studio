@@ -9,7 +9,7 @@ import {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "5492944818271";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || "542944380386";
 
 const TOTAL_STEPS = 5;
 
