@@ -5,21 +5,8 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import type { EmblaCarouselType } from "embla-carousel";
-import {
-  galleryItems,
-  categoryLabels,
-  type GalleryCategory,
-  type GalleryItem,
-} from "@/lib/gallery";
+import { galleryItems, type GalleryItem } from "@/lib/gallery";
 import { stagger, fadeUp } from "@/lib/animations";
-
-const categories: GalleryCategory[] = [
-  "all",
-  "realism",
-  "blackwork",
-  "micro",
-  "studio",
-];
 
 function LightBox({
   item,
@@ -74,14 +61,10 @@ function numberWithinRange(number: number, min: number, max: number) {
 export function Portfolio() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeCategory, setActiveCategory] = useState<GalleryCategory>("all");
   const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const filtered =
-    activeCategory === "all"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeCategory);
+  const filtered = galleryItems;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -220,31 +203,6 @@ export function Portfolio() {
           </motion.h2>
         </motion.div>
 
-        {/* Filter tabs */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="flex flex-wrap justify-center gap-3 mb-10"
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                setTimeout(() => emblaApi?.scrollTo(0), 0);
-              }}
-              className={`px-5 py-2 rounded-full text-xs tracking-widest uppercase font-semibold transition-all duration-300 ${
-                activeCategory === cat
-                  ? "bg-pink-miami text-white glow-pink"
-                  : "border border-white/15 text-white/50 hover:border-pink-miami hover:text-pink-miami"
-              }`}
-            >
-              {categoryLabels[cat]}
-            </button>
-          ))}
-        </motion.div>
-
         {/* Carousel */}
         <motion.div
           variants={fadeUp}
@@ -256,7 +214,7 @@ export function Portfolio() {
             <div className="flex touch-pan-y">
               {filtered.map((item, i) => (
                 <div
-                  key={`${activeCategory}-${item.src}`}
+                  key={item.src}
                   className="embla__slide relative flex-[0_0_80%] sm:flex-[0_0_60%] md:flex-[0_0_48%] lg:flex-[0_0_40%] min-w-0 px-3 md:px-5"
                 >
                   <div
@@ -286,35 +244,25 @@ export function Portfolio() {
                     {/* Hover ring */}
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-pink-miami/0 group-hover:ring-pink-miami/40 transition-all duration-500 pointer-events-none" />
 
-                    {/* Meta label */}
-                    <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
-                      <div>
-                        <span className="block text-pink-miami text-[10px] tracking-[0.3em] uppercase font-medium mb-1">
-                          {categoryLabels[item.category]}
-                        </span>
-                        <h3 className="font-display text-white text-xl md:text-2xl tracking-wide leading-tight">
-                          {item.alt}
-                        </h3>
-                      </div>
-                      <span
-                        className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 w-10 h-10 rounded-full bg-pink-miami text-white flex items-center justify-center flex-shrink-0"
-                        aria-hidden
+                    {/* Expand affordance on hover */}
+                    <span
+                      className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 w-10 h-10 rounded-full bg-pink-miami text-white flex items-center justify-center"
+                      aria-hidden
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
                       >
-                        <svg
-                          className="w-4 h-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7"
-                          />
-                        </svg>
-                      </span>
-                    </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7"
+                        />
+                      </svg>
+                    </span>
 
                     {/* Corner index */}
                     <div className="absolute top-5 left-5 flex items-center gap-2">
